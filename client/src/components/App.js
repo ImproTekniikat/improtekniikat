@@ -12,6 +12,7 @@ import ExerciseFilter from './ExerciseFilter';
 import ExerciseList from './ExerciseList';
 import { testdata } from './Testdata';
 import history from '../history';
+import exerciseService from '../services/Exercises';
 
 const rowMarginStyle = {
   marginTop: '2em'
@@ -34,6 +35,13 @@ class App extends React.Component {
     this.selectCategory = this.selectCategory.bind(this);
     this.clearSelectedCategory = this.clearSelectedCategory.bind(this);
     this.handleAddNew = this.handleAddNew.bind(this);
+  }
+
+  componentDidMount() {
+    exerciseService.getAll().then(response => {
+      console.log(response);
+      this.setState({ exercises: response, filteredExercises: response });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
