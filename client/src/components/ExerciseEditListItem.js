@@ -3,14 +3,13 @@ import { ListGroup, ListGroupItem, Panel, ButtonToolbar, Button } from 'react-bo
 
 export default class ExerciseEditListItem extends Component {
   render() {
-    const { title, description, category, onEdit, onDelete } = this.props;
-    console.log("ExerciseEditListItem: ", title);
-    console.log("ExerciseEditListItem: ", description);
-    console.log("ExerciseEditListItem: ", category);
-    debugger
-    return(
-        <Panel collapsible>
-         <Panel.Heading>{title}</Panel.Heading>
+    const { id, title, description, category, onEdit, onDelete } = this.props;
+    return (
+      <Panel eventKey={id}>
+        <Panel.Heading>
+          <Panel.Title toggle>{title}</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body collapsible>
           <ListGroup>
             {description.map((item, index) =>
               <ListGroupItem key={index}>{item}</ListGroupItem>)}
@@ -20,10 +19,8 @@ export default class ExerciseEditListItem extends Component {
             <Button onClick={onEdit} bsStyle="info">Edit</Button>
             <Button onClick={onDelete} bsStyle="danger">Delete</Button>
           </ButtonToolbar>
-        </Panel>
-      )
+        </Panel.Body>
+      </Panel>
+    )
   }
 }
-
-//          <h4>Kuvaus</h4>
-//        <Panel collapsible header={title} >

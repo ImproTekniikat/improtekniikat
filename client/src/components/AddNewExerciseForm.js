@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 //import Modal from 'react-modal';
 import {
-Modal,
-Button,
-FormGroup,
-ControlLabel,
-FormControl,
+  Modal,
+  Button,
+  FormGroup,
+  ControlLabel,
+  FormControl,
 } from 'react-bootstrap';
 
 export default class AddNewExerciseForm extends Component {
@@ -19,12 +19,13 @@ export default class AddNewExerciseForm extends Component {
     };
   }
   openModal = () => {
-    this.setState({ modalIsOpen: true,
-                    isValidData: false
+    this.setState({
+      modalIsOpen: true,
+      isValidData: false
     });
   }
   closeModal = () => {
-    this.setState({modalIsOpen: false});
+    this.setState({ modalIsOpen: false });
   }
 
   onSaveClick = () => {
@@ -33,16 +34,12 @@ export default class AddNewExerciseForm extends Component {
       title: this.input.value,
       description: this.description.value.split(","),
       category: this.category.value
-      });
-      console.log("onSaveClick: ");
-      console.log("this.props.data: ", this.props.data);
-      console.log("this.category.value: ", this.category.value);
-debugger
+    });
     this.closeModal();
   }
 
   validateHandler = () => {
-    this.setState({...this.state, isValidData: !!(this.input.value && this.description.value && (this.category.value !== "")) })
+    this.setState({ ...this.state, isValidData: !!(this.input.value && this.description.value && (this.category.value !== "")) })
   }
 
   componentDidMount() {
@@ -50,34 +47,34 @@ debugger
   }
 
   render() {
-    const {title = "", description = [], category = ""} = this.props.data;
+    const { title = "", description = [], category = "" } = this.props.data;
 
     return (
       <Modal show={this.state.modalIsOpen} onHide={this.closeModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>{(!title) ? "Lisää tekniikka" : "Muokkaa tekniikkaa"}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form>
+        <Modal.Header closeButton>
+          <Modal.Title>{(!title) ? "Lisää tekniikka" : "Muokkaa tekniikkaa"}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
             <FormGroup>
               <ControlLabel>Tekniikka</ControlLabel>
               <FormControl
                 componentClass="input"
                 placeholder="Kirjoita tähän tekniikan otsikko"
-                inputRef={(ref) => {this.input = ref}}
+                inputRef={(ref) => { this.input = ref }}
                 defaultValue={title}
                 onChange={this.validateHandler}>
-                </FormControl>
+              </FormControl>
             </FormGroup>
             <FormGroup>
               <ControlLabel>Kuvaus</ControlLabel>
               <FormControl
                 componentClass="textarea"
                 placeholder="Kirjoita tähän tekniikan kuvaus"
-                inputRef={(ref) => {this.description = ref}}
+                inputRef={(ref) => { this.description = ref }}
                 defaultValue={description.join()}
                 onChange={this.validateHandler}>
-                </FormControl>
+              </FormControl>
             </FormGroup>
             <FormGroup>
               <ControlLabel>Kategoria</ControlLabel>
@@ -95,15 +92,15 @@ debugger
                 <option value="Long form">Long form</option>
                 <option value="Kokoelma">Kokoelma</option>
                 <option value="Muu tekniikka">Muu tekniikka</option>
-                
+
               </FormControl>
-            </FormGroup>            
-            </form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.onSaveClick} bsStyle="info" disabled={!this.state.isValidData}>Tallenna</Button>
-            <Button onClick={this.closeModal}>Sulje</Button>
-          </Modal.Footer>
+            </FormGroup>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.onSaveClick} bsStyle="info" disabled={!this.state.isValidData}>Tallenna</Button>
+          <Button onClick={this.closeModal}>Sulje</Button>
+        </Modal.Footer>
       </Modal>
     )
   }
