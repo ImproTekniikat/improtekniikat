@@ -1,7 +1,11 @@
 export const AUTH_CONFIG = {
   domain: 'improsivusto.eu.auth0.com',
   clientId: 'Cldiq6Z7azFTSdITHf4Hrnoj5SigXvZN',
-  callbackUrl: 'http://localhost:3000/callback'
+  callbackUrl:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000/callback'
+      : 'https://improtekniikat.herokuapp.com/callback'
+  // callbackUrl: 'http://localhost:3000/callback'
 };
 
 /*
