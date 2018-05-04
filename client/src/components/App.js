@@ -35,6 +35,7 @@ class App extends React.Component {
     this.selectCategory = this.selectCategory.bind(this);
     this.clearSelectedCategory = this.clearSelectedCategory.bind(this);
     this.handleAddNew = this.handleAddNew.bind(this);
+    this.handleCategoryEditingView = this.handleCategoryEditingView.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +51,10 @@ class App extends React.Component {
 
   handleAddNew() {
     history.push('/addnewexercise');
+  }
+
+  handleCategoryEditingView() {
+    history.push('/categoryeditingview');
   }
 
   selectCategory(index, category) {
@@ -80,6 +85,7 @@ class App extends React.Component {
                 <ButtonToolbar>
                   <ButtonGroup>
                     <Button onClick={this.handleAddNew}>Muokkaa tietoja</Button>
+                    <Button onClick={this.handleCategoryEditingView}>Muokkaa kategorioita</Button>
                   </ButtonGroup>
                 </ButtonToolbar>
               )}

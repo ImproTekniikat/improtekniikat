@@ -9,7 +9,7 @@ import {
   FormControl,
 } from 'react-bootstrap';
 
-export default class AddNewExerciseForm extends Component {
+export default class ExerciseForm extends Component {
   constructor(props) {
     super(props);
     console.log("fORMIN constructor-funktiossa: this.props: ", this.props);
@@ -39,7 +39,7 @@ export default class AddNewExerciseForm extends Component {
   }
 
   validateHandler = () => {
-    this.setState({ ...this.state, isValidData: !!(this.input.value && this.description.value && (this.category.value !== "")) })
+    this.setState({ ...this.state, isValidData: !!(this.input.value && this.description.value && this.category.value) })
   }
 
   componentDidMount() {

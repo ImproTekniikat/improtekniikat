@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Accordion, Panel, PanelGroup } from 'react-bootstrap';
+import { Panel, PanelGroup } from 'react-bootstrap';
 import ExerciseEditListItem from './ExerciseEditListItem';
 
 export default class ExerciseEditList extends Component {
@@ -9,7 +9,7 @@ export default class ExerciseEditList extends Component {
     return (
       <Panel>
         {exercises.length ?
-          <PanelGroup accordion id="Haitari-soi">
+          <PanelGroup id="Haitari-soi">
             {exercises.map((item) =>
               <ExerciseEditListItem
                 key={item.id} {...item}

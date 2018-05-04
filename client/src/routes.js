@@ -3,6 +3,7 @@ import { Route, Router } from 'react-router-dom';
 import App from './components/App';
 import Callback from './components/Callback/Callback';
 import AddNewExercise from './components/AddNewExercise';
+import CategoryEditingView from './components/CategoryEditingView';
 import Auth from './Auth/Auth';
 import history from './history';
 
@@ -35,7 +36,11 @@ export const makeMainRoutes = () => {
           path="/addnewexercise"
           render={props => <AddNewExercise {...props} />}
         />
+        <Route
+          path="/categoryeditingview"
+          render={props => <CategoryEditingView {...props} />}
+        />
       </div>
-    </Router>
+    </Router >
   );
 };

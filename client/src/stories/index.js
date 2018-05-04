@@ -8,6 +8,13 @@ import ExerciseFilter from '../components/ExerciseFilter';
 import ExerciseList from '../components/ExerciseList';
 import Callback from '../components/Callback/Callback';
 import AddNewExercise from '../components/AddNewExercise';
+import AddExerciseButton from '../components/AddExerciseButton';
+import ExerciseForm from '../components/ExerciseForm';
+import CategoryEditingView from '../components/CategoryEditingView';
+import CategoryEditList from '../components/CategoryEditList';
+import CategoryEditListItem from '../components/CategoryEditListItem';
+import AddCategoryButton from '../components/AddCategoryButton';
+import CategoryForm from '../components/CategoryForm';
 import { testdata } from '../components/Testdata';
 
 class AuthMockLogged {
@@ -57,4 +64,25 @@ storiesOf('Footer', module).add('footer', () => <Footer />);
 storiesOf('Callback', module).add('callback', () => <Callback />);
 storiesOf('AddNewExercise', module).add('addNewExercise', () => (
   <AddNewExercise />
+));
+storiesOf('AddExerciseButton', module).add('addExerciseButton', () => (
+  < AddExerciseButton />
+));
+storiesOf('ExerciseForm', module).add('exerciseForm', () => (
+  < ExerciseForm />
+));
+storiesOf('CategoryEditingView', module).add('categoryEditingView', () => (
+  < CategoryEditingView />
+));
+storiesOf('CategoryEditList', module).add('categoryEditList', () => (
+  < CategoryEditList />
+));
+storiesOf('CategoryEditListItem', module).add('categoryEditListItem', () => (
+  < CategoryEditListItem />
+));
+storiesOf('AddCategoryButton', module).add('addCategoryButton', () => (
+  < AddCategoryButton />
+));
+storiesOf('CategoryForm', module).add('categoryForm', () => (
+  < CategoryForm />
 ));

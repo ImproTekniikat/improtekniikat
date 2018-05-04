@@ -10,8 +10,7 @@ import {
   Button
 } from 'react-bootstrap';
 
-// Lassi lisäsi
-import AddNewExerciseForm from './AddNewExerciseForm';
+import ExerciseForm from './ExerciseForm';
 import ExerciseEditList from './ExerciseEditList';
 import AddExerciseButton from './AddExerciseButton';
 import './AddNewExercise.css';
@@ -19,22 +18,22 @@ import './AddNewExercise.css';
 class AddNewExercise extends React.Component {
   constructor(props) {
     super(props);
-    // Lassi lisäsi
-    this.editItem = {};
-    this.goHome.bind(this);
-    // Lassi lisäsi
-    this.addExercise.bind(this);
-    this.saveExercise.bind(this);
-    this.state = { exercises: [] };
+    this.exerciseEditingItem = {};
+    this.goHome = this.goHome.bind(this);
+    this.addExercise = this.addExercise.bind(this);
+    this.saveExercise = this.saveExercise.bind(this);
+    //this.deleteExercise = this.deleteExercise.bind(this);
+    this.state = {
+      exercises: [],
+    };
   }
 
   goHome() {
     history.push('/home');
   }
 
-  // Lassi lisäsi
   addExercise = (item) => {
-    this.editItem = item || { title: "", description: [], category: "" };
+    this.exerciseEditingItem = item || { title: "", description: [], category: "" };
     this.refs.modal.openModal();
     this.forceUpdate();
   }
@@ -65,7 +64,7 @@ class AddNewExercise extends React.Component {
         <Grid>
           <Row className="show-grid">
             <Col xs={12} md={12}>
-              Todo!
+              Tällä sivulla voit lisätä ja muokata tekniikoita.
             </Col>
           </Row>
           <Row className="show-grid">
@@ -74,7 +73,7 @@ class AddNewExercise extends React.Component {
                 <ButtonGroup>
                   <Button onClick={this.goHome}>Palaa takaisin</Button>
                   <AddExerciseButton onClick={this.addExercise} />
-                  <AddNewExerciseForm ref="modal" data={this.editItem} onSave={this.saveExercise} />
+                  <ExerciseForm ref="modal" data={this.exerciseEditingItem} onSave={this.saveExercise} />
                 </ButtonGroup>
               </ButtonToolbar>
             </Col>
