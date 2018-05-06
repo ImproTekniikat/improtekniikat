@@ -24,25 +24,30 @@ class AddNewExercise extends React.Component {
     this.saveExercise = this.saveExercise.bind(this);
     //this.deleteExercise = this.deleteExercise.bind(this);
     this.state = {
-      exercises: [],
+      exercises: []
     };
   }
 
   goHome() {
+    this.props.saveNewExercises(this.state.exercises);
     history.push('/home');
   }
 
-  addExercise = (item) => {
-    this.exerciseEditingItem = item || { title: "", description: [], category: "" };
+  addExercise = item => {
+    this.exerciseEditingItem = item || {
+      title: '',
+      description: [],
+      category: ''
+    };
     this.refs.modal.openModal();
     this.forceUpdate();
-  }
+  };
 
-  saveExercise = (item) => {
+  saveExercise = item => {
     this.setState({
-      exercises:
-        (!item.id) ? this.state.exercises.concat({ ...item, id: Date.now() }) :
-          this.state.exercises.map((el, idx) => {
+      exercises: !item.id
+        ? this.state.exercises.concat({ ...item, id: Date.now() })
+        : this.state.exercises.map((el, idx) => {
             if (el.id === item.id) {
               el.title = item.title;
               el.description = item.description;
@@ -50,13 +55,14 @@ class AddNewExercise extends React.Component {
             }
             return el;
           })
-    })
-  }
+    });
+  };
 
-  deleteExcercise = (item) => {
-    this.setState({ exercises: this.state.exercises.filter((el) => el.id !== item.id) });
-  }
-
+  deleteExcercise = item => {
+    this.setState({
+      exercises: this.state.exercises.filter(el => el.id !== item.id)
+    });
+  };
 
   render() {
     return (
@@ -73,7 +79,11 @@ class AddNewExercise extends React.Component {
                 <ButtonGroup>
                   <Button onClick={this.goHome}>Palaa takaisin</Button>
                   <AddExerciseButton onClick={this.addExercise} />
-                  <ExerciseForm ref="modal" data={this.exerciseEditingItem} onSave={this.saveExercise} />
+                  <ExerciseForm
+                    ref="modal"
+                    data={this.exerciseEditingItem}
+                    onSave={this.saveExercise}
+                  />
                 </ButtonGroup>
               </ButtonToolbar>
             </Col>
@@ -81,7 +91,11 @@ class AddNewExercise extends React.Component {
           <Row className="show-grid">
             <Col xs={12} md={12}>
               <h1>Tekniikat</h1>
-              <ExerciseEditList exercises={this.state.exercises} onEditClick={this.addExercise} onDeleteClick={this.deleteExcercise} />
+              <ExerciseEditList
+                exercises={this.state.exercises}
+                onEditClick={this.addExercise}
+                onDeleteClick={this.deleteExcercise}
+              />
             </Col>
           </Row>
         </Grid>

@@ -7,7 +7,6 @@ import {
   ButtonGroup,
   Button
 } from 'react-bootstrap';
-import Header from './Header';
 import ExerciseFilter from './ExerciseFilter';
 import ExerciseList from './ExerciseList';
 import { testdata } from './Testdata';
@@ -31,7 +30,7 @@ const getCategories = exercises => {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { exercises: testdata, filteredExercises: testdata };
+    this.state = { exercises: [], filteredExercises: [] };
     this.selectCategory = this.selectCategory.bind(this);
     this.clearSelectedCategory = this.clearSelectedCategory.bind(this);
     this.handleAddNew = this.handleAddNew.bind(this);
@@ -77,7 +76,6 @@ class App extends React.Component {
     const { isAuthenticated } = this.props.auth;
     return (
       <div>
-        <Header auth={this.props.auth} />
         <Grid>
           <Row className="show-grid">
             <Col xs={6} md={9}>
@@ -85,14 +83,16 @@ class App extends React.Component {
                 <ButtonToolbar>
                   <ButtonGroup>
                     <Button onClick={this.handleAddNew}>Muokkaa tietoja</Button>
-                    <Button onClick={this.handleCategoryEditingView}>Muokkaa kategorioita</Button>
+                    <Button onClick={this.handleCategoryEditingView}>
+                      Muokkaa kategorioita
+                    </Button>
                   </ButtonGroup>
                 </ButtonToolbar>
               )}
             </Col>
             <Col xs={6} md={3}>
               <ExerciseFilter
-                categories={getCategories(testdata)}
+                categories={getCategories(this.state.exercises)}
                 selectCategory={this.selectCategory}
                 selectedCategory={this.state.selectedCategory}
                 clearSelectedCategory={this.clearSelectedCategory}

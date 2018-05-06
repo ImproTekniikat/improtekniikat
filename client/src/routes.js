@@ -4,8 +4,10 @@ import App from './components/App';
 import Callback from './components/Callback/Callback';
 import AddNewExercise from './components/AddNewExercise';
 import CategoryEditingView from './components/CategoryEditingView';
+import Layout from './components/Layout';
 import Auth from './Auth/Auth';
 import history from './history';
+import exerciseService from './services/Exercises';
 
 const auth = new Auth();
 
@@ -15,6 +17,20 @@ const handleAuthentication = ({ location }) => {
   }
 };
 
+const saveNewExercises = exercises => {
+  console.log(exercises);
+  exercises.forEach(element => {
+    const exercise = {
+      Name: element.title,
+      Description: element.description,
+      Category: element.category
+    };
+    exerciseService.create(exercise).then(response => {
+      console.log(response);
+    });
+  });
+};
+
 export const makeMainRoutes = () => {
   return (
     <Router history={history}>
@@ -22,9 +38,20 @@ export const makeMainRoutes = () => {
         <Route
           exact
           path="/"
-          render={props => <App auth={auth} {...props} />}
+          render={props => (
+            <Layout auth={auth}>
+              <App auth={auth} {...props} />
+            </Layout>
+          )}
         />
-        <Route path="/home" render={props => <App auth={auth} {...props} />} />
+        <Route
+          path="/home"
+          render={props => (
+            <Layout auth={auth}>
+              <App auth={auth} {...props} />
+            </Layout>
+          )}
+        />
         <Route
           path="/callback"
           render={props => {
@@ -34,13 +61,21 @@ export const makeMainRoutes = () => {
         />
         <Route
           path="/addnewexercise"
-          render={props => <AddNewExercise {...props} />}
+          render={props => (
+            <Layout auth={auth}>
+              <AddNewExercise saveNewExercises={saveNewExercises} {...props} />
+            </Layout>
+          )}
         />
         <Route
           path="/categoryeditingview"
-          render={props => <CategoryEditingView {...props} />}
+          render={props => (
+            <Layout auth={auth}>
+              <CategoryEditingView {...props} />
+            </Layout>
+          )}
         />
       </div>
-    </Router >
+    </Router>
   );
 };
