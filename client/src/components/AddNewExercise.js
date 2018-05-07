@@ -28,12 +28,8 @@ class AddNewExercise extends React.Component {
     this.saveExercise = this.saveExercise.bind(this);
     //this.deleteExercise = this.deleteExercise.bind(this);
     this.state = {
-<<<<<<< HEAD
       exercises: [],
       error: null
-=======
-      exercises: []
->>>>>>> 60535d419aa9a3640daa6ca3f9432c371c872648
     };
   }
 
@@ -52,7 +48,6 @@ class AddNewExercise extends React.Component {
     this.forceUpdate();
   };
 
-<<<<<<< HEAD
   checkExercise = (item) => {
     const same = (this.state.exercises.find(n => (n.id !== item.id && n.title === item.title)))
     if (same) {
@@ -68,10 +63,7 @@ class AddNewExercise extends React.Component {
     }
   }
 
-  saveExercise = (item) => {
-=======
   saveExercise = item => {
->>>>>>> 60535d419aa9a3640daa6ca3f9432c371c872648
     this.setState({
       exercises: !item.id
         ? this.state.exercises.concat({ ...item, id: Date.now() })
@@ -107,15 +99,7 @@ class AddNewExercise extends React.Component {
                 <ButtonGroup>
                   <Button onClick={this.goHome}>Palaa takaisin</Button>
                   <AddExerciseButton onClick={this.addExercise} />
-<<<<<<< HEAD
                   <ExerciseForm ref="modal" data={this.exerciseEditingItem} onSave={this.checkExercise} />
-=======
-                  <ExerciseForm
-                    ref="modal"
-                    data={this.exerciseEditingItem}
-                    onSave={this.saveExercise}
-                  />
->>>>>>> 60535d419aa9a3640daa6ca3f9432c371c872648
                 </ButtonGroup>
               </ButtonToolbar>
             </Col>
@@ -123,16 +107,8 @@ class AddNewExercise extends React.Component {
           <Row className="show-grid">
             <Col xs={12} md={12}>
               <h1>Tekniikat</h1>
-<<<<<<< HEAD
               <Notification message={this.state.error} />
               <ExerciseEditList exercises={this.state.exercises} onEditClick={this.addExercise} onDeleteClick={this.deleteExcercise} />
-=======
-              <ExerciseEditList
-                exercises={this.state.exercises}
-                onEditClick={this.addExercise}
-                onDeleteClick={this.deleteExcercise}
-              />
->>>>>>> 60535d419aa9a3640daa6ca3f9432c371c872648
             </Col>
           </Row>
         </Grid>

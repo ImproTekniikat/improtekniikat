@@ -83,15 +83,8 @@ class App extends React.Component {
               {isAuthenticated() && (
                 <ButtonToolbar>
                   <ButtonGroup>
-<<<<<<< HEAD
                     <Button onClick={this.handleAddNew}>Muokkaa tekniikoita</Button>
                     <Button onClick={this.handleCategoryEditingView}>Muokkaa kategorioita</Button>
-=======
-                    <Button onClick={this.handleAddNew}>Muokkaa tietoja</Button>
-                    <Button onClick={this.handleCategoryEditingView}>
-                      Muokkaa kategorioita
-                    </Button>
->>>>>>> 60535d419aa9a3640daa6ca3f9432c371c872648
                   </ButtonGroup>
                 </ButtonToolbar>
               )}
