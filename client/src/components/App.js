@@ -7,12 +7,11 @@ import {
   ButtonGroup,
   Button
 } from 'react-bootstrap';
-import Header from './Header';
 import ExerciseFilter from './ExerciseFilter';
 import ExerciseList from './ExerciseList';
-import { testdata } from './Testdata';
-import history from '../history';
-import exerciseService from '../services/Exercises';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import * as actionCreators from '../actions/index.js';
 
 const rowMarginStyle = {
   marginTop: '2em'
@@ -31,7 +30,9 @@ const getCategories = exercises => {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { exercises: testdata, filteredExercises: testdata };
+    this.state = {
+      filteredExercises: this.props.exercises
+    };
     this.selectCategory = this.selectCategory.bind(this);
     this.clearSelectedCategory = this.clearSelectedCategory.bind(this);
     this.handleAddNew = this.handleAddNew.bind(this);
@@ -39,37 +40,36 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    exerciseService.getAll().then(response => {
-      console.log(response);
-      this.setState({ exercises: response, filteredExercises: response });
-    });
+    this.props.fetchExercises();
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    // console.log(nextProps);
   }
 
   handleAddNew() {
-    history.push('/addnewexercise');
+    this.props.addnewexerciseRoute();
   }
 
   handleCategoryEditingView() {
-    history.push('/categoryeditingview');
+    this.props.categoryeditingviewRoute();
   }
 
   selectCategory(index, category) {
     this.setState({
       selectedCategory: category,
-      filteredExercises: this.state.exercises.filter(
+      filteredExercises: this.props.exercises.filter(
         ex => ex.Category === category
-      )
+      ),
+      isFiltered: true
     });
   }
 
   clearSelectedCategory() {
     this.setState({
       selectedCategory: '',
-      filteredExercises: this.state.exercises
+      filteredExercises: this.props.exercises,
+      isFiltered: false
     });
   }
 
@@ -77,31 +77,47 @@ class App extends React.Component {
     const { isAuthenticated } = this.props.auth;
     return (
       <div>
-        <Header auth={this.props.auth} />
         <Grid>
           <Row className="show-grid">
             <Col xs={6} md={9}>
               {isAuthenticated() && (
                 <ButtonToolbar>
                   <ButtonGroup>
+<<<<<<< HEAD
                     <Button onClick={this.handleAddNew}>Muokkaa tekniikoita</Button>
                     <Button onClick={this.handleCategoryEditingView}>Muokkaa kategorioita</Button>
+=======
+                    <Button onClick={this.handleAddNew}>Muokkaa tietoja</Button>
+                    <Button onClick={this.handleCategoryEditingView}>
+                      Muokkaa kategorioita
+                    </Button>
+>>>>>>> 60535d419aa9a3640daa6ca3f9432c371c872648
                   </ButtonGroup>
                 </ButtonToolbar>
               )}
             </Col>
             <Col xs={6} md={3}>
-              <ExerciseFilter
-                categories={getCategories(testdata)}
-                selectCategory={this.selectCategory}
-                selectedCategory={this.state.selectedCategory}
-                clearSelectedCategory={this.clearSelectedCategory}
-              />
+              {this.props.exercises && (
+                <ExerciseFilter
+                  categories={getCategories(this.props.exercises)}
+                  selectCategory={this.selectCategory}
+                  selectedCategory={this.state.selectedCategory}
+                  clearSelectedCategory={this.clearSelectedCategory}
+                />
+              )}
             </Col>
           </Row>
           <Row className="show-grid" style={rowMarginStyle}>
             <Col xs={12} md={12}>
-              <ExerciseList exercises={this.state.filteredExercises} />
+              {this.props.exercises && (
+                <ExerciseList
+                  exercises={
+                    this.state.isFiltered
+                      ? this.state.filteredExercises
+                      : this.props.exercises
+                  }
+                />
+              )}
             </Col>
           </Row>
         </Grid>
@@ -110,4 +126,18 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    exercises: state.appState.exercises
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addnewexerciseRoute: () => dispatch(push('/addnewexercise')),
+    categoryeditingviewRoute: () => dispatch(push('/categoryeditingview')),
+    fetchExercises: () => dispatch(actionCreators.fetchExercises())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

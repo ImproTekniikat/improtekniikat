@@ -1,11 +1,12 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import App from './components/App';
 import Callback from './components/Callback/Callback';
 import AddNewExercise from './components/AddNewExercise';
 import CategoryEditingView from './components/CategoryEditingView';
+import Layout from './components/Layout';
 import Auth from './Auth/Auth';
-import history from './history';
+import { ConnectedRouter } from 'react-router-redux';
 
 const auth = new Auth();
 
@@ -15,16 +16,27 @@ const handleAuthentication = ({ location }) => {
   }
 };
 
-export const makeMainRoutes = () => {
+export const makeMainRoutes = history => {
   return (
-    <Router history={history}>
+    <ConnectedRouter history={history}>
       <div>
         <Route
           exact
           path="/"
-          render={props => <App auth={auth} {...props} />}
+          render={props => (
+            <Layout auth={auth}>
+              <App auth={auth} {...props} />
+            </Layout>
+          )}
         />
-        <Route path="/home" render={props => <App auth={auth} {...props} />} />
+        <Route
+          path="/home"
+          render={props => (
+            <Layout auth={auth}>
+              <App auth={auth} {...props} />
+            </Layout>
+          )}
+        />
         <Route
           path="/callback"
           render={props => {
@@ -34,13 +46,21 @@ export const makeMainRoutes = () => {
         />
         <Route
           path="/addnewexercise"
-          render={props => <AddNewExercise {...props} />}
+          render={props => (
+            <Layout auth={auth}>
+              <AddNewExercise {...props} />
+            </Layout>
+          )}
         />
         <Route
           path="/categoryeditingview"
-          render={props => <CategoryEditingView {...props} />}
+          render={props => (
+            <Layout auth={auth}>
+              <CategoryEditingView {...props} />
+            </Layout>
+          )}
         />
       </div>
-    </Router >
+    </ConnectedRouter>
   );
 };

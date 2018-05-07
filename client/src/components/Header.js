@@ -6,28 +6,31 @@ class Header extends React.Component {
     const { isAuthenticated, username } = this.props.auth;
     const user = username();
     return (
-      <Navbar staticTop={true}>
-        <Navbar.Header>
-          <Navbar.Brand>Improsivusto </Navbar.Brand>
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Navbar.Text>
-            {isAuthenticated() && <span>Terve {user}!</span>}
-          </Navbar.Text>
-          <Nav className="pull-right">
-            {!isAuthenticated() && (
-              <NavItem eventKey={1} href="#" onClick={this.login.bind(this)}>
-                Kirjaudu
-              </NavItem>
-            )}
-            {isAuthenticated() && (
-              <NavItem eventKey={1} href="#" onClick={this.logout.bind(this)}>
-                Kirjaudu ulos
-              </NavItem>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <div>
+        <Navbar collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>Improsivusto </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Navbar.Text>
+              {isAuthenticated() && <span>Terve {user}!</span>}
+            </Navbar.Text>
+            <Nav pullRight>
+              {!isAuthenticated() && (
+                <NavItem eventKey={1} href="#" onClick={this.login.bind(this)}>
+                  Kirjaudu
+                </NavItem>
+              )}
+              {isAuthenticated() && (
+                <NavItem eventKey={1} href="#" onClick={this.logout.bind(this)}>
+                  Kirjaudu ulos
+                </NavItem>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </div>
     );
   }
 
