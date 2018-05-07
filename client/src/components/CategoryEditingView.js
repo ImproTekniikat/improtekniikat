@@ -13,6 +13,8 @@ import {
 import CategoryForm from './CategoryForm';
 import CategoryEditList from './CategoryEditList';
 import AddCategoryButton from './AddCategoryButton';
+import Notification from './Notification';
+import './CategoryEditingView.css';
 
 class CategoryEditingView extends React.Component {
   constructor(props) {
@@ -20,10 +22,12 @@ class CategoryEditingView extends React.Component {
     this.categoryEditingItem = {};
     this.goHome.bind(this);
     this.addCategory.bind(this);
+    this.checkName.bind(this);
     this.saveCategory.bind(this);
     //this.deleteCategory.bind(this);
     this.state = {
-      categories: []
+      categories: [],
+      error: null
     };
   }
 
@@ -35,6 +39,21 @@ class CategoryEditingView extends React.Component {
     this.categoryEditingItem = item || { name: "" };
     this.refs.modal.openModal();
     this.forceUpdate();
+  }
+
+  checkName = (item) => {
+    const same = (this.state.categories.find(n => (n.id !== item.id && n.name === item.name)))
+    if (same) {
+      this.setState({
+        error: "Kategoria on jo olemassa nimellä:   " + item.name
+      });
+      setTimeout(() => {
+        this.setState({ error: null })
+      }, 30000)
+    }
+    else {
+      this.saveCategory(item);
+    }
   }
 
   saveCategory = (item) => {
@@ -70,7 +89,7 @@ class CategoryEditingView extends React.Component {
                 <ButtonGroup>
                   <Button onClick={this.goHome}>Palaa takaisin</Button>
                   <AddCategoryButton onClick={this.addCategory} />
-                  <CategoryForm ref="modal" data={this.categoryEditingItem} onSave={this.saveCategory} />
+                  <CategoryForm ref="modal" data={this.categoryEditingItem} onSave={this.checkName} />
                 </ButtonGroup>
               </ButtonToolbar>
             </Col>
@@ -78,6 +97,7 @@ class CategoryEditingView extends React.Component {
           <Row className="show-grid">
             <Col xs={12} md={12}>
               <h1>Kategoriat</h1>
+              <Notification message={this.state.error} />
               <CategoryEditList categories={this.state.categories} onEditClick={this.addCategory} onDeleteClick={this.deleteCategory} />
             </Col>
           </Row>

@@ -15,6 +15,7 @@ import CategoryEditList from '../components/CategoryEditList';
 import CategoryEditListItem from '../components/CategoryEditListItem';
 import AddCategoryButton from '../components/AddCategoryButton';
 import CategoryForm from '../components/CategoryForm';
+import Notification from '../components/Notification';
 import { testdata } from '../components/Testdata';
 
 class AuthMockLogged {
@@ -85,4 +86,7 @@ storiesOf('AddCategoryButton', module).add('addCategoryButton', () => (
 ));
 storiesOf('CategoryForm', module).add('categoryForm', () => (
   < CategoryForm />
+));
+storiesOf('Notification', module).add('notification', () => (
+  < Notification />
 ));
