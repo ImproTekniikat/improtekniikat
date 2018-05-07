@@ -1,13 +1,12 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import App from './components/App';
 import Callback from './components/Callback/Callback';
 import AddNewExercise from './components/AddNewExercise';
 import CategoryEditingView from './components/CategoryEditingView';
 import Layout from './components/Layout';
 import Auth from './Auth/Auth';
-import history from './history';
-import exerciseService from './services/Exercises';
+import { ConnectedRouter } from 'react-router-redux';
 
 const auth = new Auth();
 
@@ -17,23 +16,9 @@ const handleAuthentication = ({ location }) => {
   }
 };
 
-const saveNewExercises = exercises => {
-  console.log(exercises);
-  exercises.forEach(element => {
-    const exercise = {
-      Name: element.title,
-      Description: element.description,
-      Category: element.category
-    };
-    exerciseService.create(exercise).then(response => {
-      console.log(response);
-    });
-  });
-};
-
-export const makeMainRoutes = () => {
+export const makeMainRoutes = history => {
   return (
-    <Router history={history}>
+    <ConnectedRouter history={history}>
       <div>
         <Route
           exact
@@ -63,7 +48,7 @@ export const makeMainRoutes = () => {
           path="/addnewexercise"
           render={props => (
             <Layout auth={auth}>
-              <AddNewExercise saveNewExercises={saveNewExercises} {...props} />
+              <AddNewExercise {...props} />
             </Layout>
           )}
         />
@@ -76,6 +61,6 @@ export const makeMainRoutes = () => {
           )}
         />
       </div>
-    </Router>
+    </ConnectedRouter>
   );
 };

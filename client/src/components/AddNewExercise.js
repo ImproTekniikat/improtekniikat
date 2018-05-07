@@ -1,5 +1,7 @@
 import React from 'react';
-import history from '../history';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import * as actionCreators from '../actions/index.js';
 
 import {
   Grid,
@@ -29,8 +31,8 @@ class AddNewExercise extends React.Component {
   }
 
   goHome() {
-    this.props.saveNewExercises(this.state.exercises);
-    history.push('/home');
+    this.props.saveExercises(this.state.exercises);
+    this.props.homeRoute();
   }
 
   addExercise = item => {
@@ -104,4 +106,18 @@ class AddNewExercise extends React.Component {
   }
 }
 
-export default AddNewExercise;
+const mapStateToProps = state => {
+  return {
+    state
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    homeRoute: () => dispatch(push('/home')),
+    saveExercises: exercises =>
+      dispatch(actionCreators.saveExercises(exercises))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewExercise);
