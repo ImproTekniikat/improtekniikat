@@ -9,15 +9,28 @@ import {
   FormControl,
 } from 'react-bootstrap';
 
+
 export default class ExerciseForm extends Component {
   constructor(props) {
     super(props);
-    console.log("fORMIN constructor-funktiossa: this.props: ", this.props);
+    this.getOptions = this.getOptions.bind(this);
     this.state = {
       modalIsOpen: false,
-      isValidData: false
+      isValidData: false,
+      categories: [
+        { id: 1, name: "Muu kategoria" },
+        { id: 2, name: "Musical" },
+        { id: 3, name: "Warm-Up" },
+        { id: 4, name: "Kokoelma" }
+      ]
     };
   }
+
+  //  const App = (props) => {
+  //    const { categories } = props;
+  getOptions = () =>
+    this.state.categories.map(c => <option key={c.id} value={c.name}>{c.name}</option>);
+
   openModal = () => {
     this.setState({
       modalIsOpen: true,
@@ -84,15 +97,8 @@ export default class ExerciseForm extends Component {
                 inputRef={(ref) => { this.category = ref }}
                 defaultValue={category}
                 onChange={this.validateHandler}>
-
-                <option value="">Valitse...</option>
-                <option value="Musical">Musical</option>
-                <option value="Warm-up">Warm-up</option>
-                <option value="Long form">Long form</option>
-                <option value="Long form">Long form</option>
-                <option value="Kokoelma">Kokoelma</option>
-                <option value="Muu tekniikka">Muu tekniikka</option>
-
+                <option key={0} value="">Valitse</option>
+                {this.getOptions()}
               </FormControl>
             </FormGroup>
           </form>
